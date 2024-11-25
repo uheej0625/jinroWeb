@@ -2,7 +2,6 @@ import express from 'express';
 import { publicIpv4 } from 'public-ip';
 
 const app = express();
-const PORT = 5001;
 
 app.get('/get-ip', async (req, res) => {
   try {
@@ -15,6 +14,8 @@ app.get('/get-ip', async (req, res) => {
 
 app.use(express.static('public')); // HTML 파일 제공
 
-app.listen(PORT, () => {
-  console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
+// PORT
+const PORT = process.env.PORT || 5001;
+const listener = app.listen(PORT, '0.0.0.0', () => {
+  console.log("Your app is listening on port " + listener.address().port);
 });
