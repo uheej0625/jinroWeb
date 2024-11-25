@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IP 확인</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>진로 발표용 사이트</h1>
+  <button id="getIpButton">IP 확인하기</button>
+  <div id="output"></div>
+
+  <script>
+    document.getElementById('getIpButton').addEventListener('click', async () => {
+      const outputElement = document.getElementById('output');
+      outputElement.textContent = "IP를 가져오는 중...";
+      try {
+        const response = await fetch('/get-ip');
+        const data = await response.json();
+        outputElement.textContent = `당신의 IP는 ${data.ip}입니다.`;
+      } catch (error) {
+        outputElement.textContent = "IP를 가져오는데 실패했습니다.";
+        console.error('Error fetching IP:', error);
+      }
+    });
+  </script>
+</body>
+</html>
