@@ -6,7 +6,8 @@ const app = express();
 app.get('/get-ip', async (req, res) => {
   try {
     const ip = await publicIpv4(); // 사용자의 공인 IP 주소 가져오기
-    res.json({ ip });
+		const newIp = await req.ip
+    res.json({ newIp });
   } catch (error) {
     res.status(500).json({ error: 'IP를 가져올 수 없습니다.' });
   }
