@@ -1,15 +1,16 @@
 import express from 'express';
-import { publicIpv4 } from 'public-ip';
+import requestIp from 'request-ip'; // Import the request-ip module
 
 const app = express();
 
-app.get('/get-ip', async (req, res) => {
+// Middleware to set the client's IP address
+app.use(requestIp.mw());
+
+app.get('/get-ip', (req, res) => {
   try {
-    const ip = await publicIpv4(); // 사용자의 공인 IP 주소 가져오기
-		const newIp = req.ip;
-    res.json({ newIp });
-    console.log(ip)
-    console.log(newIp)
+    const clientIp = req.clientIp; // Get the client's IP address
+    res.json({ clientIp });
+    console.log(clientIp);
   } catch (error) {
     res.status(500).json({ error: 'IP를 가져올 수 없습니다.' });
   }
