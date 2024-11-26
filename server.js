@@ -8,6 +8,8 @@ app.get('/get-ip', async (req, res) => {
     const ip = await publicIpv4(); // 사용자의 공인 IP 주소 가져오기
 		const newIp = await req.ip
     res.json({ newIp });
+    console.log(ip)
+    console.log(newIp)
   } catch (error) {
     res.status(500).json({ error: 'IP를 가져올 수 없습니다.' });
   }
